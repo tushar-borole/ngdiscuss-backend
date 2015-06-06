@@ -40,6 +40,7 @@ exports.post = function(req, res, next){
    return next();
 };
 
+
 // D: /api/todos
 exports.del = function(req, res, next){
 	db.Todo.destroy({id:req.params.id}).success(function(affectedRows){
