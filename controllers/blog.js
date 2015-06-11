@@ -14,14 +14,14 @@ exports.createBlog = function (req, res, next) {
         title: req.body.title,
         body: req.body.body,
         tags: req.body.tags,
-        user_id:loggedInUserId
+        user_id: loggedInUserId
     }
-    
 
-      db.Blog.create(blogJson).success(function (blog) {
-          res.send(blog);
-          return next();
-      });
+
+    db.Blog.create(blogJson).then(function (blog) {
+        res.send(blog);
+        return next();
+    });
 
     //return next();
 
@@ -31,13 +31,18 @@ exports.createBlog = function (req, res, next) {
 exports.getAllBlogs = function (req, res, next) {
 
 
-      db.Blog.findAll().success(function (blog) {
-          res.send(blog);
-          return next();
-      });
+    db.Blog.findAll({
+        include: [db.User]
+    }).then(function (blog) {
+        var blogResponse = {
+            "error": false,
+            resp: blog
+        }
+        res.send(blogResponse);
+        return next();
+    });
 
     //return next();
 
 
 };
-

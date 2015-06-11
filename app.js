@@ -8,6 +8,7 @@ var config = require('./config/config.js'); // get our config file
 var authenticate = express.Router(); 
 var jwt = require('jsonwebtoken');
 
+
 // Setting Parameters to server
 /*var server = restify.createServer({
   name: 'Todo',
@@ -23,7 +24,18 @@ var jwt = require('jsonwebtoken');
 var app = express();
 app.use(bodyParser.json());
 app.set('superSecret', config.secret); 
-
+var options = {
+    origin: '*', // default: '*'
+    method: 'GET,PUT,POST,DELETE,HEAD,OPTIONS', // default: 'GET,PUT,POST,DELETE,HEAD,OPTIONS'
+    headers: 'Content-Type, Authorization, Content-Length, X-Requested-With, X-HTTP-Method-Override'
+};
+//app.use(require('express-cors-options')(options));
+app.all('*', function(req, res, next) {
+       res.header("Access-Control-Allow-Origin", "*");
+       res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With, X-HTTP-Method-Override");
+       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,HEAD,OPTIONS');
+       next();
+});
 
 
 // route middleware to verify a token
@@ -71,7 +83,7 @@ require('./routes')(app,routes,authenticate);
  db
 .sequelize
 .sync({ force: false})
-.complete(function(err) {
+.nodeify(function(err) {
   if (err) {
     throw err;
   } else {

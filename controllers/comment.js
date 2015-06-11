@@ -10,19 +10,33 @@ exports.createComment = function (req, res, next) {
     var loggedInUserId = decoded[0].id;
 
 
-    var blogJson = {
-        title: req.body.title,
+    var commentJson = {
         body: req.body.body,
-        tags: req.body.tags,
-        user_id:loggedInUserId,
-        blog_id:req.params.blogid
+        user_id: loggedInUserId,
+        blog_id: req.params.blogid
     }
-    
 
-      db.Blog.create(blogJson).success(function (blog) {
-          res.send(blog);
-          return next();
-      });
+
+    db.Comment.create(commentJson).then(function (blog) {
+        res.send(blog);
+        return next();
+    });
+
+    //return next();
+
+
+};
+exports.getCommentByBlog = function (req, res, next) {
+
+
+    db.Comment.findAll({
+        where: {
+            blog_id: req.params.blogid
+        }
+    }).then(function (blog) {
+        res.send(blog);
+        return next();
+    });
 
     //return next();
 

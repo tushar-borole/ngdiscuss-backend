@@ -22,11 +22,10 @@ fs
   });
 
 Object.keys(db).forEach(function(modelName) {
-  if (db[modelName].options.hasOwnProperty('associate')) {
-    db[modelName].options.associate(db);
+  if ("associate" in db[modelName]) {
+    db[modelName].associate(db);
   }
 });
-
 module.exports = lodash.extend({
   sequelize: sequelize,
   Sequelize: Sequelize

@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     var User = sequelize.define('User', {
-         id: {
+        id: {
             type: DataTypes.BIGINT(20),
             autoIncrement: true,
             primaryKey: true
@@ -22,8 +22,12 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         }
-    },{
-  
+    }, {
+        classMethods: {
+            associate: function (models) {
+                User.hasMany(models.Blog,{ foreignKey: 'user_id'});
+            }
+        },
         freezeTableName: true,
         tableName: 'user' //not sure what the legacy table name is
     });

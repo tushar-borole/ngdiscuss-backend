@@ -6,14 +6,18 @@ module.exports = function (sequelize, DataTypes) {
         },
         user_id: {
             type: DataTypes.BIGINT(20),
-            references: 'user', // <<< Note, its table's name, not object name
-            referencesKey: 'id',
+             references: {
+                model: "user",
+                key: "id"
+            },
             allowNull: false
         },
         blog_id: {
             type: DataTypes.BIGINT(20),
-            references: 'blog', // <<< Note, its table's name, not object name
-            referencesKey: 'id',
+             references: {
+                model: "blog",
+                key: "id"
+            },
             allowNull: false
         }
     }, {
