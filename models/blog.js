@@ -9,6 +9,14 @@ module.exports = function (sequelize, DataTypes) {
             autoIncrement: true,
             primaryKey: true
         },
+        comment_count: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        pageview_count: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
         body: {
             type: DataTypes.STRING,
             allowNull: false
@@ -23,14 +31,15 @@ module.exports = function (sequelize, DataTypes) {
                 model: "user",
                 key: "id"
             },
-            allowNull: false
+            allowNull: true
         }
     }, {
         classMethods: {
             associate: function (models) {
-                console.log("check");
+                console.log("blog association");
                 Blog.belongsTo(models.User, {
-                    foreignKey: 'user_id'
+                    foreignKey: 'user_id',
+                    foreignKeyConstraint: true
                 });
             }
         },

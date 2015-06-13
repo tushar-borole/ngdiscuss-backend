@@ -7,20 +7,29 @@ module.exports = function (sequelize, DataTypes) {
         user_id: {
             type: DataTypes.BIGINT(20),
              references: {
-                model: "user",
+                model: "User",
                 key: "id"
             },
-            allowNull: false
+            allowNull: true
         },
         blog_id: {
             type: DataTypes.BIGINT(20),
              references: {
-                model: "blog",
+                model: "Blog",
                 key: "id"
             },
             allowNull: false
         }
     }, {
+        classMethods: {
+            associate: function (models) {
+                console.log("blog association");
+                Comment.belongsTo(models.User, {
+                    foreignKey: 'user_id',
+                foreignKeyConstraint: true
+                });
+            }
+        },
         paranoid: true,
         underscored: true,
         tableName: 'comment' //not sure what the legacy table name is

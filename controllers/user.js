@@ -1,4 +1,5 @@
 var db = require('../models');
+var service = require('../services');
 var winston = require('winston');
 var jwt = require('jsonwebtoken');
 var config = require('../config/config.js');
@@ -47,12 +48,10 @@ exports.login = function (req, res, next) {
                 expiresInMinutes: 1440 // expires in 24 hours
             });
 
-            // return the information including token as JSON
-            res.send({
-                error: false,
-                message: 'Enjoy your token!',
-                token: token
-            });
+        
+          
+            service.utils.responseHandler(res, token, "Loggedin Successfull", false, 200);
+            
              return next();
         } else {
             res.send({

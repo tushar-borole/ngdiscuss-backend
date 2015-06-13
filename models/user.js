@@ -25,10 +25,11 @@ module.exports = function (sequelize, DataTypes) {
     }, {
         classMethods: {
             associate: function (models) {
-                User.hasMany(models.Blog,{ foreignKey: 'user_id'});
+                 console.log("yser");
+                User.hasMany(models.Blog,{ foreignKey: 'user_id', foreignKeyConstraint: true});
+                 User.hasMany(models.Comment,{ foreignKey: 'user_id', foreignKeyConstraint: true});
             }
         },
-        freezeTableName: true,
         tableName: 'user' //not sure what the legacy table name is
     });
 

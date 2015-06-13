@@ -1,5 +1,6 @@
 var db = require('../models');
 var jwt = require('jsonwebtoken');
+var service = require('../services');
 
 // POST: /api/user
 /*Create user*/
@@ -42,6 +43,29 @@ exports.getAllBlogs = function (req, res, next) {
         return next();
     });
 
+    //return next();
+
+
+};
+
+exports.getBlogDetails = function (req, res, next) {
+
+
+
+    db.Blog.build({
+        id: req.params.blogid
+    }).increment('pageview_count');
+
+    db.Blog.findAll({
+        where: {
+            id: req.params.blogid
+        },
+        include: [db.User]
+    }).then(function (blog) {
+        service.utils.responseHandler(res, blog, "Blog successfull", false, 200);
+
+        return next();
+    });
     //return next();
 
 
