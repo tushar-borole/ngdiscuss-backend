@@ -4,6 +4,11 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.TEXT,
             allowNull: false
         },
+         id: {
+            type: DataTypes.BIGINT(20),
+            autoIncrement: true,
+            primaryKey: true
+        },
         user_id: {
             type: DataTypes.BIGINT(20),
             references: {
