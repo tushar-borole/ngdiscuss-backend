@@ -20,6 +20,8 @@
         "jsonwebtoken": "5.0.1",
         "bcryptjs": "2.1.0",
         "express-cors-options":"0.0.4",
-        "bluebird":"2.9.27"
+        "bluebird":"2.9.27",
+        "request": "^2.55.0",
+          "cors": "^2.7.1"
     }
 }

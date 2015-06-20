@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var config = require('./config/config.js'); // get our config file
 var authenticate = express.Router(); 
 var jwt = require('jsonwebtoken');
+var cors = require('cors');
 
 
 // Setting Parameters to server
@@ -26,12 +27,15 @@ app.use(bodyParser.json());
 app.set('superSecret', config.secret); 
 
 //app.use(require('express-cors-options')(options));
-app.all('*', function(req, res, next) {
-       res.header("Access-Control-Allow-Origin", "*");
-       res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With, X-HTTP-Method-Override,x-access-token");
-       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,HEAD,OPTIONS');
-       next();
-});
+var whitelist = ['http://localhost:9006', 'http://192.168.1.124:9000', 'http://mycompany.com' ];
+app.use(cors({
+  origin: function(origin, callback) {
+    var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+    callback(null, originIsWhitelisted);
+  },
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin','x-access-token' ]
+}));
 
 
 // route middleware to verify a token

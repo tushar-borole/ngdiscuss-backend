@@ -18,7 +18,7 @@ module.exports = function (sequelize, DataTypes) {
             defaultValue: 0
         },
         body: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
         },
         tags: {
@@ -41,6 +41,7 @@ module.exports = function (sequelize, DataTypes) {
                     foreignKey: 'user_id',
                     foreignKeyConstraint: true
                 });
+                Blog.hasMany(models.Comment,{ foreignKey: 'blog_id', foreignKeyConstraint: true});
             }
         },
         paranoid: true,

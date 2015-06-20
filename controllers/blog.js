@@ -33,7 +33,18 @@ exports.getAllBlogs = function (req, res, next) {
 
 
     db.Blog.findAll({
-        include: [db.User]
+        include: [
+            {
+                model: db.Comment,
+                include: [db.User],
+                limit:2
+
+
+        },
+            {
+                model: db.User
+        }
+    ]
     }).then(function (blog) {
         var blogResponse = {
             "error": false,
@@ -62,7 +73,7 @@ exports.getBlogDetails = function (req, res, next) {
         },
         include: [db.User]
     }).then(function (blog) {
-        service.utils.responseHandler(res, blog, "Blog successfull", false, 200);
+        service.utils.responseHandler(res, blog[0], "Blog successfull", false, 200);
 
         return next();
     });

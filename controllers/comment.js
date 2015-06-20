@@ -8,6 +8,7 @@ exports.createComment = function (req, res, next) {
 
     var token = req.headers['x-access-token']
     var decoded = jwt.decode(token);
+    console.log(decoded)
     var loggedInUserId = decoded[0].id;
 
 
@@ -24,6 +25,7 @@ exports.createComment = function (req, res, next) {
         res.send(blog);
         return next();
     });
+    
 
     //return next();
 

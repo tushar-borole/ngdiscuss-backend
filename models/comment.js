@@ -1,12 +1,12 @@
 module.exports = function (sequelize, DataTypes) {
     var Comment = sequelize.define('Comment', {
         body: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
         },
         user_id: {
             type: DataTypes.BIGINT(20),
-             references: {
+            references: {
                 model: "User",
                 key: "id"
             },
@@ -14,11 +14,11 @@ module.exports = function (sequelize, DataTypes) {
         },
         blog_id: {
             type: DataTypes.BIGINT(20),
-             references: {
+            references: {
                 model: "Blog",
                 key: "id"
             },
-            allowNull: false
+            allowNull: true
         }
     }, {
         classMethods: {
@@ -26,7 +26,11 @@ module.exports = function (sequelize, DataTypes) {
                 console.log("blog association");
                 Comment.belongsTo(models.User, {
                     foreignKey: 'user_id',
-                foreignKeyConstraint: true
+                    foreignKeyConstraint: true
+                });
+                Comment.belongsTo(models.Blog, {
+                    foreignKey: 'blog_id',
+                    foreignKeyConstraint: true
                 });
             }
         },
