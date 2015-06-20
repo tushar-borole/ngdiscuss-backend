@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes) {
         blog_id: {
             type: DataTypes.BIGINT(20),
             references: {
-                model: "Blog",
+                model: "blog",
                 key: "id"
             },
             allowNull: true
