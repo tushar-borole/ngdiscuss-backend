@@ -82,7 +82,7 @@ require('./routes')(app,routes,authenticate);
  // Creating Tables or Initiating Connections
  db
 .sequelize
-.sync({ force: false})
+.sync()
 .nodeify(function(err) {
   if (err) {
     throw err;
