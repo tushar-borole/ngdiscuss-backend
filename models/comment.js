@@ -12,7 +12,7 @@ module.exports = function (sequelize, DataTypes) {
         user_id: {
             type: DataTypes.BIGINT(20),
             references: {
-                model: "User",
+                model: "user",
                 key: "id"
             },
             allowNull: true
