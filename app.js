@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.set('superSecret', config.secret); 
 
 //app.use(require('express-cors-options')(options));
-var whitelist = ['http://localhost:9006', 'http://192.168.1.124:9000', 'http://mycompany.com' ];
+var whitelist = ['http://localhost:9006', 'http://www.ngdiscuss.com', 'http://mycompany.com' ];
 app.use(cors({
   origin: function(origin, callback) {
     var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
