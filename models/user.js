@@ -62,11 +62,18 @@ module.exports = function (sequelize, DataTypes) {
             associate: function (models) {
                 console.log("yser");
                 User.hasMany(models.Blog, {
-                    foreignKey: 'user_id',
+                    foreignKey: {
+                        name: 'user_id',
+                        allowNull: false
+                    },
+
                     foreignKeyConstraint: true
                 });
                 User.hasMany(models.Comment, {
-                    foreignKey: 'user_id',
+                    foreignKey: {
+                        name: 'user_id',
+                        allowNull: false
+                    },
                     foreignKeyConstraint: true
                 });
             }

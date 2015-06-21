@@ -153,10 +153,10 @@ exports.facebookLogin = function (req, res, next) {
                 }
             }).then(function (existingUser) {
 
-                console.log(existingUser)
+              
                 if (existingUser.length !== 0) {
 
-                    var token = jwt.sign(existingUser, config.secret, {
+                    var token = jwt.sign(existingUser[0], config.secret, {
                         expiresInMinutes: 1440 // expires in 24 hours
                     });
                     return res.send({
@@ -164,7 +164,7 @@ exports.facebookLogin = function (req, res, next) {
                         user:existingUser[0]
                     });
                 }
-                console.log(profile)
+           
 
                 var user = {
                     facebook: profile.id,
@@ -176,7 +176,8 @@ exports.facebookLogin = function (req, res, next) {
 
 
                 db.User.create(user).then(function (user) {
-                    var token = jwt.sign(user, config.secret, {
+                    console.log(user)
+                    var token = jwt.sign(user[0], config.secret, {
                         expiresInMinutes: 1440 // expires in 24 hours
                     });
                     return res.send({

@@ -30,11 +30,17 @@ module.exports = function (sequelize, DataTypes) {
             associate: function (models) {
                 console.log("blog association");
                 Comment.belongsTo(models.User, {
-                    foreignKey: 'user_id',
+                     foreignKey: {
+                        name: 'user_id',
+                        allowNull: false
+                    },
                     foreignKeyConstraint: true
                 });
                 Comment.belongsTo(models.Blog, {
-                    foreignKey: 'blog_id',
+                     foreignKey: {
+                        name: 'blog_id',
+                        allowNull: false
+                    },
                     foreignKeyConstraint: true
                 });
             }

@@ -8,7 +8,8 @@ exports.createBlog = function (req, res, next) {
 
     var token = req.headers['x-access-token']
     var decoded = jwt.decode(token);
-    var loggedInUserId = decoded[0].id;
+   
+    var loggedInUserId = decoded.id;
 
 
     var blogJson = {
@@ -20,7 +21,7 @@ exports.createBlog = function (req, res, next) {
 
 
     db.Blog.create(blogJson).then(function (blog) {
-        res.send(blog);
+        service.utils.responseHandler(res, blog[0], "Blog successfull", false, 200);
         return next();
     });
 
@@ -37,7 +38,7 @@ exports.getAllBlogs = function (req, res, next) {
             {
                 model: db.Comment,
                 include: [db.User],
-                limit:2
+                limit: 2
 
 
         },

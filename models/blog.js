@@ -38,10 +38,19 @@ module.exports = function (sequelize, DataTypes) {
             associate: function (models) {
                 console.log("blog association");
                 Blog.belongsTo(models.User, {
-                    foreignKey: 'user_id',
+                    foreignKey: {
+                        name: 'user_id',
+                        allowNull: false
+                    },
                     foreignKeyConstraint: true
                 });
-                Blog.hasMany(models.Comment,{ foreignKey: 'blog_id', foreignKeyConstraint: true});
+                Blog.hasMany(models.Comment, {
+                    foreignKey: {
+                        name: 'blog_id',
+                        allowNull: false
+                    },
+                    foreignKeyConstraint: true
+                });
             }
         },
         paranoid: true,
